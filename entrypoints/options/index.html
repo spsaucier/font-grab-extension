@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Font Grab Settings</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="page-title">Font Grab Settings</h1>
+      </header>
+
+      <main class="main">
+        <form id="settings-form" class="settings-form">
+          <!-- Debug Mode Toggle -->
+          <div class="setting-group">
+            <div class="setting-header">
+              <label for="debug-mode-toggle" class="setting-label">Debug mode</label>
+              <input
+                type="checkbox"
+                id="debug-mode-toggle"
+                class="toggle-input"
+                aria-label="Enable debug mode"
+              />
+            </div>
+            <p class="setting-hint">Show verbose logs in the browser console</p>
+            <div class="save-indicator" id="debug-mode-indicator" hidden>✓ Saved</div>
+          </div>
+
+          <!-- Default Sample Text -->
+          <div class="setting-group">
+            <label for="default-sample-text" class="setting-label">Default preview text</label>
+            <p class="setting-hint">Text shown in the font preview area</p>
+            <textarea
+              id="default-sample-text"
+              class="textarea-input"
+              maxlength="200"
+              placeholder="Enter preview text..."
+              aria-label="Default preview text"
+            ></textarea>
+            <div class="char-count">
+              <span id="char-count">0</span> / 200
+            </div>
+            <div class="save-indicator" id="sample-text-indicator" hidden>✓ Saved</div>
+          </div>
+
+          <!-- Default Font Size -->
+          <div class="setting-group">
+            <label for="preview-font-size" class="setting-label">Default preview size</label>
+            <p class="setting-hint">Font size in pixels for the preview area</p>
+            <div class="number-input-wrapper">
+              <input
+                type="number"
+                id="preview-font-size"
+                class="number-input"
+                min="12"
+                max="144"
+                aria-label="Default preview size in pixels"
+              />
+              <span class="size-unit">px</span>
+            </div>
+            <div class="save-indicator" id="font-size-indicator" hidden>✓ Saved</div>
+          </div>
+
+          <!-- Clear All Fonts Button -->
+          <div class="setting-group danger-group">
+            <button
+              type="button"
+              id="clear-fonts-btn"
+              class="clear-btn"
+              aria-label="Clear all saved fonts"
+            >
+              Clear all fonts
+            </button>
+            <p class="setting-hint">Removes all saved fonts and preview data</p>
+            <div class="save-indicator" id="clear-fonts-indicator" hidden>✓ Cleared</div>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirmation-dialog" class="dialog-overlay" hidden>
+      <div class="dialog-content">
+        <h2 class="dialog-title">Clear all fonts?</h2>
+        <p class="dialog-message">This will permanently delete all saved fonts and preview data. This action cannot be undone.</p>
+        <div class="dialog-actions">
+          <button id="dialog-cancel" class="dialog-btn dialog-btn-secondary">Cancel</button>
+          <button id="dialog-confirm" class="dialog-btn dialog-btn-danger">Clear all</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

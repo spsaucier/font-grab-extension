@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Font Grab</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="header-left">
+          <span class="logo-icon">🔤</span>
+          <h1 class="app-title">Font Grab</h1>
+        </div>
+        <button class="settings-btn" id="settings-btn" title="Settings" aria-label="Open settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </header>
+
+      <main class="main">
+        <!-- Font List Panel -->
+        <section class="font-list-panel" id="font-list-panel">
+          <div class="panel-header">
+            <span class="panel-title">Detected Fonts</span>
+            <span class="font-count" id="font-count">0</span>
+          </div>
+
+          <!-- Loading state -->
+          <div class="state-loading" id="state-loading" hidden>
+            <div class="spinner"></div>
+            <p>Scanning for fonts…</p>
+          </div>
+
+          <!-- Empty state -->
+          <div class="state-empty" id="state-empty">
+            <div class="empty-icon">🔍</div>
+            <p class="empty-title">No fonts detected</p>
+            <p class="empty-hint">Visit a page that uses web fonts to get started.</p>
+          </div>
+
+          <!-- Font list -->
+          <ul class="font-list" id="font-list" role="listbox" aria-label="Detected fonts"></ul>
+        </section>
+
+        <!-- Font Detail Panel -->
+        <section class="font-detail-panel" id="font-detail-panel" hidden>
+          <div class="detail-header">
+            <button class="back-btn" id="back-btn" aria-label="Back to font list">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+              Back
+            </button>
+          </div>
+
+          <div class="detail-content">
+            <div class="detail-name-row">
+              <h2 class="detail-family" id="detail-family">Font Name</h2>
+              <span class="format-badge" id="detail-format-badge">WOFF2</span>
+            </div>
+
+            <div class="detail-meta">
+              <div class="meta-row">
+                <span class="meta-label">Style</span>
+                <span class="meta-value" id="detail-subfamily">Regular</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Size</span>
+                <span class="meta-value" id="detail-filesize">—</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Glyphs</span>
+                <span class="meta-value" id="detail-glyphs">—</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Designer</span>
+                <span class="meta-value" id="detail-designer">—</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">License</span>
+                <span class="meta-value" id="detail-license">—</span>
+              </div>
+            </div>
+
+            <div class="subset-warning" id="subset-warning" hidden>
+              ⚠️ This appears to be a subset font (limited character set)
+            </div>
+
+            <a class="demo-link" id="demo-link" href="#" target="_blank" hidden>
+              View on Google Fonts →
+            </a>
+
+            <!-- Preview area -->
+            <div class="preview-section">
+              <div class="preview-controls">
+                <label class="preview-label" for="preview-text-input">Preview text</label>
+                <div class="size-control">
+                  <span class="size-label" id="size-display">36px</span>
+                  <input type="range" id="font-size-slider" class="size-slider"
+                    min="12" max="144" value="36" step="1" aria-label="Font size" />
+                </div>
+              </div>
+              <div
+                id="preview-text"
+                class="preview-text"
+                contenteditable="true"
+                spellcheck="false"
+                aria-label="Preview text (editable)"
+                role="textbox"
+              >The quick brown fox jumps over the lazy dog</div>
+            </div>
+
+            <button class="export-btn" id="export-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Export as OTF
+            </button>
+
+            <div class="export-status" id="export-status" hidden></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
