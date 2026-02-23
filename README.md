@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="assets/AppIcon.png" width="128" height="128" alt="Font Grab icon">
+</p>
 # Font Grab
 
 A Chrome extension that detects fonts downloaded by websites, lets you preview them in the popup, and exports clean OTF files with sanitized metadata.
